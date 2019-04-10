@@ -2,7 +2,11 @@ CREATE DATABASE IF NOT EXISTS pizzaservice;
 
 USE pizzaservice;
 
-CREATE OR REPLACE TABLE Angebot (
+DROP TABLE IF EXISTS BestelltePizza;
+DROP TABLE IF EXISTS Angebot;
+DROP TABLE IF EXISTS Bestellung;
+
+CREATE TABLE Angebot (
 	PizzaNummer SERIAL,
 	PizzaName VARCHAR(12) NOT NULL,
 	Bilddatei VARCHAR(12) NOT NULL,
@@ -10,18 +14,18 @@ CREATE OR REPLACE TABLE Angebot (
 	PRIMARY KEY(PizzaNummer)
 );
 
-CREATE OR REPLACE TABLE Bestellung (
+CREATE TABLE Bestellung (
 	BestellungID SERIAL,
 	Adresse VARCHAR(30) NOT NULL,
 	Bestellzeitpunkt TIMESTAMP NOT NULL,
 	PRIMARY KEY(BestellungID)
 );
 
-CREATE OR REPLACE TABLE BestelltePizza (
+CREATE TABLE BestelltePizza (
 	PizzaID SERIAL,
 	fBestellungID BIGINT UNSIGNED NOT NULL,
 	fPizzaNummer BIGINT UNSIGNED NOT NULL,
-	Status int,
+	Status ENUM('bestellt', 'im_ofen', 'fertig', 'unterwegs', 'geliefert'),
 	CONSTRAINT `fk_bestellung`
 		FOREIGN KEY (fBestellungID) REFERENCES Bestellung (BestellungID)
 		ON DELETE CASCADE,
