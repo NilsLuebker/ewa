@@ -1,34 +1,53 @@
 <?php
-$html = <<<EOT
-<!doctype html>
-<html lang="de">
-	<head>
-		<meta charset="UTF-8"/>
-		<link rel="stylesheet" href="style.css"/>
-		<script src="javascript.js"></script>
-		<title>Pizzaservice - Bestellung</title>
-	</head>
-	<body>
+require_once 'classes/Page.php';
+require_once 'classes/PizzaListItem.php';
+
+class BestellungPage extends Page
+{
+
+	private $listItems = array();
+
+	protected function __construct()
+	{
+		parent::__construct();
+	}
+
+	protected function __destruct()
+	{
+		parent::__destruct();
+	}
+
+	protected function getViewData()
+	{
+		$sql = "SELECT PizzaName, Preis, Bilddatei FROM Angebot";
+		$result = $this->_database->query($sql);
+		if ($result->num_rows > 0) {
+			while($row = $result->fetch_assoc()) {
+				$this->listItems[] = new PizzaListItem($row);
+			}
+		}
+	}
+
+	protected function generateView()
+	{
+		$this->getViewData();
+		$this->generatePageHeader("Pizzaservice - Bestellung");
+		echo
+<<<HTML
+
 		<main id="bestellung">
 			<h1>Bestellung</h1>
 			<section id="speisekarte">
 				<h2>Speisekarte</h2>
 				<ul>
-					<li>
-						<img src="pizza.png" alt="">
-						<p>Margherita</p>
-						<p>4.00 &euro;</p>
-					</li>
-					<li>
-						<img src="pizza.png" alt="">
-						<p>Salami</p>
-						<p>4.50 &euro;</p>
-					</li>
-					<li>
-						<img src="pizza.png" alt="">
-						<p>Hawaii</p>
-						<p>5.50 &euro;</p>
-					</li>
+
+HTML;
+		foreach ($this->listItems as $item) {
+			$item->generateView();
+		}
+		echo
+<<<HTML
+
 				</ul>
 			</section>
 			<form id="warenkorb" action="https://echo.fbi.h-da.de/" method="GET">
@@ -44,9 +63,28 @@ $html = <<<EOT
 				<button type="button" tabindex="3">Auswahl L&ouml;schen</button>
 				<button type="submit" tabindex="4">Bestellen</button>
 			</form>
-		</main>
-	</body>
-</html>
-EOT;
 
-echo $html;
+HTML;
+		$this->generatePageFooter();
+	}
+
+	protected function processReceivedData()
+	{
+		parent::processReceivedData();
+	}
+
+	public static function main()
+	{
+		try {
+			$page = new BestellungPage();
+			$page->processReceivedData();
+			$page->generateView();
+		}
+		catch (Exception $e) {
+			header("Content-type: text/plain; charset=UTF-8");
+			echo $e->getMessage();
+		}
+	}
+}
+
+BestellungPage::main();

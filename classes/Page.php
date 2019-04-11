@@ -34,7 +34,7 @@ abstract class Page
 	</head>
 	<body>
 HTML;
-		print($html_head);
+		echo $html_head;
 	}
 
 	protected function generatePageFooter()
@@ -44,6 +44,7 @@ HTML;
 	</body>
 </html>
 HTML;
+	echo $html_footer;
 	}
 
 	protected function processReceivedData()
