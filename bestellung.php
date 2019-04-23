@@ -50,12 +50,12 @@ HTML;
 
 				</ul>
 			</section>
-			<form id="warenkorb" action="https://echo.fbi.h-da.de/" method="GET">
+			<form id="warenkorb" action="kunde.php" method="POST">
 				<h2>Warenkorb</h2>
-				<select multiple name="pizzen" size="3" tabindex="0">
+				<select multiple name="pizzen[]" size="3" tabindex="0">
 					<option value="margherita" selected>Margherita</option>
-					<option value="salami">Salami</option>
-					<option value="hawaii">Hawaii</option>
+					<option value="salami" selected>Salami</option>
+					<option value="hawaii" selected>Hawaii</option>
 				</select>
 				<p>14.00 &euro;</p>
 				<input type="text" placeholder="Ihre Adresse" name="adresse" tabindex="1"/>

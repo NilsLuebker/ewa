@@ -3,7 +3,6 @@
 	<head>
 		<meta charset="UTF-8"/>
 		<link rel="stylesheet" href="styles/main.css"/>
-		<script defer src="scripts/main.js"></script>
 		<title>Pizzaservice - Bestellung</title>
 	</head>
 	<body>
@@ -29,7 +28,7 @@
 					</li>
 				</ul>
 			</section>
-			<form id="bestell-form" action="https://echo.fbi.h-da.de/" method="GET">
+			<form id="bestell-form" action="https://echo.fbi.h-da.de/" method="POST">
 				<h2>Warenkorb</h2>
 				<select id="Warenkorb" multiple name="pizzen" tabindex="0">
 				</select>
@@ -37,8 +36,9 @@
 				<input type="text" placeholder="Ihre Adresse" name="adresse" tabindex="1"/>
 				<button type="button" tabindex="2">Alles L&ouml;schen</button>
 				<button type="button" tabindex="3">Auswahl L&ouml;schen</button>
-				<button type="submit" tabindex="4">Bestellen</button>
+				<button onclick="selectAll()" type="submit" tabindex="4">Bestellen</button>
 			</form>
 		</main>
+		<script defer src="scripts/main.js"></script>
 	</body>
 </html>

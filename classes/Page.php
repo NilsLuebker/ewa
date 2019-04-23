@@ -6,7 +6,7 @@ abstract class Page
 
 	protected function __construct()
 	{
-		$this->_database = new mysqli('localhost', 'nils', '1231', 'pizzaservice');
+		$this->_database = new mysqli('localhost', 'root', '', 'pizzaservice');
 		if ($this->_database->connect_errno) {
 			echo 'Connection to the Database could not be created';
 			exit;
