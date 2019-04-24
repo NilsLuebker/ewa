@@ -57,6 +57,7 @@ HTML;
 
 	protected function processReceivedData()
 	{
+		if($_SERVER['REQUEST_METHOD'] != 'POST') return;
 		/* var_dump($_POST); */
 		parent::processReceivedData();
 		$createBestellung = $this->_database->prepare("INSERT INTO Bestellung (Adresse) VALUES (?)");

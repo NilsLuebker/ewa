@@ -36,12 +36,12 @@ class BestellungPage extends Page
 	protected function generateView()
 	{
 		$this->getViewData();
-		$this->generatePageHeader("Pizzaservice - Baecker");
+		$this->generatePageHeader("Pizzaservice - Baecker", True);
 		echo
 <<<HTML
 	<main id="bestellung">
 			<h1>Bäcker</h1>
-			<form id="speisekarte" action="https://echo.fbi.h-da.de/" method="GET">
+			<form id="speisekarte" action="baecker.php" method="POST">
 				<h2>Bestellungen</h2>
 				<table>
                     <tr>
@@ -55,15 +55,16 @@ HTML;
 			$bestellt = $pizza['status'] == 'bestellt' ? 'checked' : '';
 			$im_ofen = $pizza['status'] == 'im_ofen' ? 'checked' : '';
 			$fertig = $pizza['status'] == 'fertig' ? 'checked' : '';
-			echo
-<<<HTML			
+			if(empty($bestellt) || empty($im_ofen) || empty($fertig)){
+			echo <<<HTML
 			<tr>
-				<td>$pizza['name']</td>
-				<td><input type="radio" name="$pizza['id']" value="bestellt" $bestellt></td> 
-				<td><input type="radio" name="$pizza['id']" value="im_ofen" $im_ofen></td>
-				<td><input type="radio" name="$pizza['id']" value="fertig" $fertig></td>
+				<td>{$pizza['name']}</td>
+				<td><input type="radio" name="{$pizza['id']}" value="bestellt" $bestellt></td> 
+				<td><input type="radio" name="{$pizza['id']}" value="im_ofen" $im_ofen></td>
+				<td><input type="radio" name="{$pizza['id']}" value="fertig" $fertig></td>
 			</tr>
 HTML;
+			}
 		}
 		echo
 <<<HTML
@@ -77,27 +78,15 @@ HTML;
 
 	protected function processReceivedData()
 	{
-		/*var_dump($_POST);
-		parent::processReceivedData();
-		$createBestellung = $this->_database->prepare("INSERT INTO Bestellung (Adresse) VALUES (?)");
-		$createBestellung->bind_param('s', $address);
-		$address = $this->_database->real_escape_string($_POST['adresse']);
-		$createBestellung->execute();
-		$bestellungID = $this->_database->insert_id;
-		$getPizzaName = $this->_database->prepare("SELECT PizzaNummer FROM Angebot WHERE PizzaName = ?");
-		$getPizzaName->bind_param('s', $pizzaName);
-		$createBestelltePizza = $this->_database->prepare("INSERT INTO BestelltePizza (fBestellungID, fPizzaNummer) VALUES (?, ?)");
-		/* var_dump($this->_database->error_list); 
-		$createBestelltePizza->bind_param('ii', $bestellungID, $pizzaNummer);
-		foreach($_POST['pizzen'] as $pizza) {
-			$pizzaName = $this->_database->real_escape_string(ucfirst($pizza));
-			$getPizzaName->execute();
-			$row = $getPizzaName->get_result()->fetch_assoc();
-			if($row) {
-				$pizzaNummer = $row['PizzaNummer'];
-				$createBestelltePizza->execute();
-			}
-		}*/
+		if($_SERVER['REQUEST_METHOD'] != 'POST') return;
+		//if(isset($_POST['']))
+		//var_dump($_POST);
+		//parent::processReceivedData();
+		$updateStatus = $this->_database->prepare("UPDATE BestelltePizza SET Status = ? WHERE PizzaID = ?");
+		$updateStatus->bind_param('si', $status, $pizzaid);
+		foreach($_POST as $pizzaid => $status){
+			$updateStatus->execute();
+		}
 	}
 
 	public static function main()
