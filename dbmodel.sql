@@ -25,7 +25,7 @@ CREATE TABLE BestelltePizza (
 	PizzaID SERIAL,
 	fBestellungID BIGINT UNSIGNED NOT NULL,
 	fPizzaNummer BIGINT UNSIGNED NOT NULL,
-	Status ENUM('bestellt', 'im_ofen', 'fertig', 'unterwegs', 'geliefert'),
+	Status ENUM('bestellt', 'im_ofen', 'fertig', 'unterwegs', 'geliefert') DEFAULT 'bestellt',
 	CONSTRAINT `fk_bestellung`
 		FOREIGN KEY (fBestellungID) REFERENCES Bestellung (BestellungID)
 		ON DELETE CASCADE,
