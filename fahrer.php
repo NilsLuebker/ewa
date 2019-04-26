@@ -72,15 +72,17 @@ class BestellungPage extends Page
 
 	protected function getViewData()
 	{
-		$getPizzaStatus = $this->_database->prepare("SELECT PizzaName, Status, PizzaID FROM BestelltePizza JOIN Angebot ON PizzaNummer = fPizzaNummer");
-		$getPizzaStatus->execute();
-		$result = $getPizzaStatus->get_result();
+		$getLieferStatus = $this->_database->prepare("SELECT BestellungID, GROUP_CONCAT(PizzaName) as Pizzen, SUM(Preis) as Gesamtpreis FROM Bestellung JOIN (BestelltePizza JOIN Angebot on PizzaNummer = fPizzanummer) on fBestellungID = BestellungID GROUP BY BestellungID HAVING 'fertig' = ALL(SELECT Status FROM BestelltePizza WHERE fBestellungID = BestellungID) OR 'unterwegs' = ALL(SELECT Status FROM BestelltePizza WHERE fBestellungID = BestellungID) OR 'geliefert' = ALL(SELECT Status FROM BestelltePizza WHERE fBestellungID = BestellungID)");
+		$getLieferStatus->execute();
+		$result = $getLieferStatus->get_result();
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
 				$this->listItems[] = [
-					"name" => $row["PizzaName"],
+					"adresse" => $row["Adresse"],
+					"pizzen" => $row["Pizzen"],
 					"status" => $row["Status"],
-					"id"=>$row["PizzaID"]
+					"id"=>$row["PizzaID"],
+					"Preis"=>$row["GesamtPreis"]
 				];
 			}
 		}
@@ -89,20 +91,14 @@ class BestellungPage extends Page
 	protected function generateView()
 	{
 		$this->getViewData();
-		$this->generatePageHeader("Pizzaservice - Baecker", True);
+		$this->generatePageHeader("Pizzaservice - Fahrer", True);
 		echo
 <<<HTML
 	<main id="bestellung">
-			<h1>Bäcker</h1>
-			<form id="speisekarte" action="baecker.php" method="POST">
+			<h1>Fahrer</h1>
+			<form id="speisekarte" action="fahrer.php" method="POST">
 				<h2>Bestellungen</h2>
-				<table>
-                    <tr>
-                        <th></th>
-                        <th>bestellt</th> 
-                        <th>im Ofen</th>
-                        <th>fertig</th>
-                    </tr>
+				<ul>
 HTML;
 		foreach($this->listItems as $pizza) {
 			$bestellt = $pizza['status'] == 'bestellt' ? 'checked' : '';
@@ -110,6 +106,22 @@ HTML;
 			$fertig = $pizza['status'] == 'fertig' ? 'checked' : '';
 			if(empty($bestellt) || empty($im_ofen) || empty($fertig)){
 			echo <<<HTML
+			<li>
+				<p>{$pizza['adresse']}</p>
+				<p>BESTELLTE PIZZEN</p>
+				<table>
+					<tr>
+						<th>fetig</th>
+						<th>unterwegs</th> 
+						<th>geliefert</th>
+					</tr>
+					<tr>
+						<td><input type="radio" name="schulz" value="fertig" checked></td> 
+						<td><input type="radio" name="schulz" value="unterwegs"></td>
+						<td><input type="radio" name="schulz" value="geliefert"></td>
+					</tr>
+				</table>
+</li>
 			<tr>
 				<td>{$pizza['name']}</td>
 				<td><input type="radio" name="{$pizza['id']}" value="bestellt" $bestellt></td> 
@@ -121,7 +133,7 @@ HTML;
 		}
 		echo
 <<<HTML
-			</table>
+			</ul>
                 <button type="submit" tabindex="1" accesskey="b">Aktualisieren</button>
             </form>
 		</main>
