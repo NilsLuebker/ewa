@@ -52,13 +52,14 @@ HTML;
 			</section>
 			<form id="warenkorb" action="kunde.php" method="POST">
 				<h2>Warenkorb</h2>
-				<select multiple name="pizzen[]" size="3" tabindex="0">
+				<select multiple name="pizzen[]" size="5" tabindex="0">
 					<option value="margherita" selected>Margherita</option>
 					<option value="salami" selected>Salami</option>
-					<option value="hawaii" selected>Hawaii</option>
+					<option value="tonno" selected>Tonno</option>
+					<option value="prosciutto" selected>Prosciutto</option>
 				</select>
 				<p>14.00 &euro;</p>
-				<input type="text" placeholder="Ihre Adresse" name="adresse" tabindex="1"/>
+				<input type="text" placeholder="Ihre Adresse" name="adresse" tabindex="1" required/>
 				<button type="button" tabindex="2">Alles L&ouml;schen</button>
 				<button type="button" tabindex="3">Auswahl L&ouml;schen</button>
 				<button type="submit" tabindex="4">Bestellen</button>

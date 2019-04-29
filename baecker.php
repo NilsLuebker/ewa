@@ -55,7 +55,7 @@ HTML;
 			$bestellt = $pizza['status'] == 'bestellt' ? 'checked' : '';
 			$im_ofen = $pizza['status'] == 'im_ofen' ? 'checked' : '';
 			$fertig = $pizza['status'] == 'fertig' ? 'checked' : '';
-			if(empty($bestellt) || empty($im_ofen) || empty($fertig)){
+			if(empty($bestellt) && empty($im_ofen) && empty($fertig)) continue;
 			echo <<<HTML
 			<tr>
 				<td>{$pizza['name']}</td>
@@ -64,7 +64,6 @@ HTML;
 				<td><input type="radio" name="{$pizza['id']}" value="fertig" $fertig></td>
 			</tr>
 HTML;
-			}
 		}
 		echo
 <<<HTML
