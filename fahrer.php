@@ -25,11 +25,11 @@ class BestellungPage extends Page
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
 				$this->listItems[] = [
-					"adresse" => $row["Adresse"],
-					"pizzen" => $row["Pizzen"],
-					"status" => $row["Status"],
-					"id"=>$row["BestellungID"],
-					"preis"=>$row["Gesamtpreis"]
+					"adresse" => htmlspecialchars($row["Adresse"]),
+					"pizzen" => htmlspecialchars($row["Pizzen"]),
+					"status" => htmlspecialchars($row["Status"]),
+					"id" => htmlspecialchars($row["BestellungID"]),
+					"preis" => htmlspecialchars($row["Gesamtpreis"])
 				];
 			}
 		}
@@ -86,7 +86,7 @@ HTML;
 	{
 		if($_SERVER['REQUEST_METHOD'] != 'POST') return;
 		//if(isset($_POST['']))
-		var_dump($_POST);
+		/* var_dump($_POST); */
 		//parent::processReceivedData();
 		$updateStatus = $this->_database->prepare("UPDATE BestelltePizza SET Status = ? WHERE fBestellungID = ?");
 		$updateStatus->bind_param('si', $status, $bestellungid);

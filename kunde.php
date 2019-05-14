@@ -2,7 +2,7 @@
 require_once 'classes/Page.php';
 require_once 'classes/PizzaListItem.php';
 
-class BestellungPage extends Page
+class KundePage extends Page
 {
 
 	private $listItems = array();
@@ -19,7 +19,8 @@ class BestellungPage extends Page
 
 	protected function getViewData()
 	{
-		$getPizzaStatus = $this->_database->prepare("SELECT PizzaName, Status FROM BestelltePizza JOIN Angebot ON PizzaNummer = fPizzaNummer");
+		$getPizzaStatus = $this->_database->prepare("SELECT PizzaName, Status FROM BestelltePizza JOIN Angebot ON PizzaNummer = fPizzaNummer WHERE fBestellungID = ?");
+		$getPizzaStatus->bind_param('s', $_SESSION['bestellung_id']);
 		$getPizzaStatus->execute();
 		$result = $getPizzaStatus->get_result();
 		if ($result->num_rows > 0) {
@@ -44,7 +45,9 @@ class BestellungPage extends Page
 			<h2>Bestellstatus</h2>
 HTML;
 		foreach($this->listItems as $pizza) {
-			echo "<p>{$pizza['name']}: {$pizza['status']}</p>";
+			$name = htmlspecialchars($pizza['name']);
+			$status = htmlspecialchars($pizza['status']);
+			echo "<p>{$name}: {$status}</p>";
 		}
 		echo
 <<<HTML
@@ -58,20 +61,21 @@ HTML;
 	protected function processReceivedData()
 	{
 		if($_SERVER['REQUEST_METHOD'] != 'POST') return;
+		if(!isset($_POST['adresse']) or !isset($_POST['pizzen'])) return;
 		/* var_dump($_POST); */
 		parent::processReceivedData();
 		$createBestellung = $this->_database->prepare("INSERT INTO Bestellung (Adresse) VALUES (?)");
 		$createBestellung->bind_param('s', $address);
-		$address = $this->_database->real_escape_string($_POST['adresse']);
+		$address = $_POST['adresse'];
 		$createBestellung->execute();
 		$bestellungID = $this->_database->insert_id;
+		$_SESSION['bestellung_id'] = $bestellungID;
 		$getPizzaName = $this->_database->prepare("SELECT PizzaNummer FROM Angebot WHERE PizzaName = ?");
 		$getPizzaName->bind_param('s', $pizzaName);
 		$createBestelltePizza = $this->_database->prepare("INSERT INTO BestelltePizza (fBestellungID, fPizzaNummer) VALUES (?, ?)");
-		/* var_dump($this->_database->error_list); */
 		$createBestelltePizza->bind_param('ii', $bestellungID, $pizzaNummer);
 		foreach($_POST['pizzen'] as $pizza) {
-			$pizzaName = $this->_database->real_escape_string(ucfirst($pizza));
+			$pizzaName = ucfirst($pizza);
 			$getPizzaName->execute();
 			$row = $getPizzaName->get_result()->fetch_assoc();
 			if($row) {
@@ -83,8 +87,9 @@ HTML;
 
 	public static function main()
 	{
+		session_start();
 		try {
-			$page = new BestellungPage();
+			$page = new KundePage();
 			$page->processReceivedData();
 			$page->generateView();
 		}
@@ -95,4 +100,4 @@ HTML;
 	}
 }
 
-BestellungPage::main();
+KundePage::main();

@@ -76,6 +76,7 @@ HTML;
 
 	public static function main()
 	{
+		session_start();
 		try {
 			$page = new BestellungPage();
 			$page->processReceivedData();
