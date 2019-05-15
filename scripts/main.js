@@ -1,5 +1,5 @@
 // Globals
-let gWarenkorb = null
+var gWarenkorb = null
 
 window.onload = () => {
 	const gesamtPreisElem = document.getElementById('GesamtPreis')
@@ -35,28 +35,19 @@ class GesamtPreis {
 class Warenkorb {
 	constructor(warenkorbElem, gesamtPreis) {
 		this.elem = warenkorbElem
-		d(this.elem)
-		this.elem.style.display = 'none'
 		this.gesamtPreis = gesamtPreis
 	}
 
 	add(name, preis) {
-		p(`adding ${name}`)
-		d(this.elem)
 		this.elem.add(Warenkorb.createOptionElement(name, preis))
 		this.elem.size++
-		this.elem.style.display = 'inline-block'
 		this.gesamtPreis.add(preis)
 	}
 
 	selectAll() {
-		d(this.elem.options)
-		d(this.elem)
-		const warenkorbElem = document.getElementById('Warenkorb')
-		d(warenkorbElem)
-		alert('asd')
-		warenkorbElem.options.forEach(option => option.selected = true)
-		// this.elem.options.forEach(option => option.selected = true)
+		for(let i = 0; i < this.elem.options.length; i++) {
+			this.elem.options[i].selected = true
+		}
 	}
 
 	static createOptionElement(name, preis) {

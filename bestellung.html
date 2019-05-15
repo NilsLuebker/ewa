@@ -4,6 +4,7 @@
 		<meta charset="UTF-8"/>
 		<link rel="stylesheet" href="styles/main.css"/>
 		<title>Pizzaservice - Bestellung</title>
+		<script defer src="scripts/main.js"></script>
 	</head>
 	<body>
 		<main id="bestellung">
@@ -36,9 +37,8 @@
 				<input type="text" placeholder="Ihre Adresse" name="adresse" tabindex="1"/>
 				<button type="button" tabindex="2">Alles L&ouml;schen</button>
 				<button type="button" tabindex="3">Auswahl L&ouml;schen</button>
-				<button onclick="selectAll()" type="submit" tabindex="4">Bestellen</button>
+				<button onclick="gWarenkorb.selectAll()" type="submit" tabindex="4">Bestellen</button>
 			</form>
 		</main>
-		<script defer src="scripts/main.js"></script>
 	</body>
 </html>
