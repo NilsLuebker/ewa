@@ -50,7 +50,7 @@ HTML;
 
 				</ul>
 			</section>
-			<form id="warenkorb" action="kunde.php" method="POST">
+			<form id="Warenkorb" action="kunde.php" method="POST">
 				<h2>Warenkorb</h2>
 				<select multiple name="pizzen[]" size="5" tabindex="0">
 					<option value="margherita" selected>Margherita</option>
@@ -58,11 +58,11 @@ HTML;
 					<option value="tonno" selected>Tonno</option>
 					<option value="prosciutto" selected>Prosciutto</option>
 				</select>
-				<p>14.00 &euro;</p>
+				<p id="GesamtPreis">0 &euro;</p>
 				<input type="text" placeholder="Ihre Adresse" name="adresse" tabindex="1" required/>
-				<button type="button" tabindex="2">Alles L&ouml;schen</button>
-				<button type="button" tabindex="3">Auswahl L&ouml;schen</button>
-				<button type="submit" tabindex="4">Bestellen</button>
+				<button onclick="gWarenkorb.deleteAll()" type="button" tabindex="2">Alles L&ouml;schen</button>
+				<button onclick="gWarenkorb.deleteSelected()" type="button" tabindex="3">Auswahl L&ouml;schen</button>
+				<button onclick="gWarenkorb.selectAll()" type="submit" tabindex="4">Bestellen</button>
 			</form>
 
 HTML;
