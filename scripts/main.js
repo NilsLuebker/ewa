@@ -50,6 +50,21 @@ class Warenkorb {
 		}
 	}
 
+	deleteSelected() {
+		for(let i = 0; i < this.elem.options.length; i++) {
+			if(this.elem.options[i].selected = true){
+				//this.elem.options[i] = null
+				//this.gesamtPreis.preis -= this.elem.options[i].dataset.preis
+			}
+		}
+	}
+
+	deleteAll() {
+		this.elem.options.length = 0
+		this.elem.size = 0
+		this.gesamtPreis.preis = 0
+	}
+
 	static createOptionElement(name, preis) {
 		const optionElem = document.createElement('option')
 		optionElem.text = name
