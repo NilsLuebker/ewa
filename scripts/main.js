@@ -1,4 +1,4 @@
-// Globals
+"use strict";
 var gWarenkorb = null
 
 window.onload = () => {
