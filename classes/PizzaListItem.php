@@ -13,7 +13,7 @@ class PizzaListItem {
 	public function generateView() {
 		echo
 <<<HTML
-						<li onclick="gWarenkorb.add($this->pizza_name, $this->pizza_price)">
+						<li onclick="gWarenkorb.add('$this->pizza_name', $this->pizza_price)">
 							<img src="images/$this->image_file_name" alt="$this->pizza_name">
 							<p>$this->pizza_name</p>
 							<p>$this->pizza_price &euro;</p>

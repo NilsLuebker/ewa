@@ -18,9 +18,13 @@ class GesamtPreis {
 		this.preis = this.preis + preis
 	}
 
+	remove(preis) {
+		this.preis = this.preis - preis
+	}
+
 	set preis(preis) {
 		this.elem.dataset.value = preis
-		this.elem.innerHTML = GesamtPreis.formatCurrency(preis)
+		this.elem.textContent = GesamtPreis.formatCurrency(preis)
 	}
 
 	get preis() {
@@ -28,7 +32,7 @@ class GesamtPreis {
 	}
 
 	static formatCurrency(preis) {
-		return `${preis.toFixed(2)} &euro;`
+		return `${preis.toFixed(2)} €`
 	}
 }
 
@@ -51,12 +55,11 @@ class Warenkorb {
 	}
 
 	deleteSelected() {
-		for(let i = 0; i < this.elem.options.length; i++) {
-			if(this.elem.options[i].selected = true){
-				//this.elem.options[i] = null
-				//this.gesamtPreis.preis -= this.elem.options[i].dataset.preis
-			}
+		while(this.elem.options.selectedIndex != -1) {
+			this.gesamtPreis.remove(this.elem.options[this.elem.options.selectedIndex].dataset.preis)
+			this.elem.options.remove(this.elem.options.selectedIndex)
 		}
+		this.elem.size = this.elem.options.length
 	}
 
 	deleteAll() {
@@ -72,6 +75,10 @@ class Warenkorb {
 		optionElem.dataset.preis = preis
 		return optionElem
 	}
+}
+
+function sendForm(event) {
+	event.target.form.submit()
 }
 
 

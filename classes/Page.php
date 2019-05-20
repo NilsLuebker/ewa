@@ -29,8 +29,8 @@ abstract class Page
 <html lang="de">
 	<head>
 		<meta charset="UTF-8"/>
-		<link rel="stylesheet" href="style.css"/>
-		<script src="javascript.js"></script>
+		<link rel="stylesheet" href="styles/main.css"/>
+		<script defer src="scripts/main.js"></script>
 HTML;
 		if($autorefresh){
 			echo "<meta http-equiv=\"refresh\" content=\"5;URL='{$_SERVER['PHP_SELF']}'\">";
