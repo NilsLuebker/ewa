@@ -23,7 +23,11 @@ class BestellungPage extends Page
 		$result = $this->_database->query($sql);
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
-				$this->listItems[] = new PizzaListItem($row);
+				$this->listItems[] = new PizzaListItem(
+					$row["Bilddatei"],
+					$row["PizzaName"],
+					$row["Preis"]
+				);
 			}
 		}
 	}
@@ -50,19 +54,15 @@ HTML;
 
 				</ul>
 			</section>
-			<form id="warenkorb" action="kunde.php" method="POST">
+			<form id="bestell-form" action="./kunde.php" method="POST" onsubmit="gWarenkorb.validate(event)">
 				<h2>Warenkorb</h2>
-				<select multiple name="pizzen[]" size="5" tabindex="0">
-					<option value="margherita" selected>Margherita</option>
-					<option value="salami" selected>Salami</option>
-					<option value="tonno" selected>Tonno</option>
-					<option value="prosciutto" selected>Prosciutto</option>
+				<select id="Warenkorb" multiple name="pizzen[]" tabindex="0" size="0">
 				</select>
-				<p>14.00 &euro;</p>
+				<p id="GesamtPreis">14.00 &euro;</p>
 				<input type="text" placeholder="Ihre Adresse" name="adresse" tabindex="1" required/>
-				<button type="button" tabindex="2">Alles L&ouml;schen</button>
-				<button type="button" tabindex="3">Auswahl L&ouml;schen</button>
-				<button type="submit" tabindex="4">Bestellen</button>
+				<button onclick="gWarenkorb.removeAll()" type="button" tabindex="2">Alles L&ouml;schen</button>
+				<button onclick="gWarenkorb.removeSelected()" type="button" tabindex="3">Auswahl L&ouml;schen</button>
+				<button onclick="gWarenkorb.selectAll()" type="submit" tabindex="4">Bestellen</button>
 			</form>
 
 HTML;

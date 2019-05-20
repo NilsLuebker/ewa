@@ -3,9 +3,11 @@ var gWarenkorb = null
 
 window.onload = () => {
 	const gesamtPreisElem = document.getElementById('GesamtPreis')
-	const gesamtPreis = new GesamtPreis(gesamtPreisElem)
 	const warenkorbElem = document.getElementById('Warenkorb')
-	gWarenkorb = new Warenkorb(warenkorbElem, gesamtPreis)
+	if(gesamtPreisElem && warenkorbElem) {
+		const gesamtPreis = new GesamtPreis(gesamtPreisElem)
+		gWarenkorb = new Warenkorb(warenkorbElem, gesamtPreis)
+	}
 }
 
 class GesamtPreis {
@@ -16,6 +18,10 @@ class GesamtPreis {
 
 	add(preis) {
 		this.preis = this.preis + preis
+	}
+
+	remove(preis) {
+		this.preis = this.preis - preis
 	}
 
 	set preis(preis) {
@@ -47,6 +53,31 @@ class Warenkorb {
 	selectAll() {
 		for(let i = 0; i < this.elem.options.length; i++) {
 			this.elem.options[i].selected = true
+		}
+	}
+
+	removeSelected() {
+		let options = this.elem.options
+		let index;
+		while((index = options.selectedIndex) != -1) {
+			this.gesamtPreis.remove(options[index].dataset.preis)
+			options.remove(index)
+		}
+		this.elem.size = options.length
+	}
+
+	removeAll() {
+		let length = this.elem.options.length
+		for(let i = 0; i < length; i++) {
+			this.gesamtPreis.preis = 0
+			this.elem.options.remove(0)
+		}
+		this.elem.size = 0
+	}
+
+	validate(event) {
+		if(this.elem.options.length == 0) {
+			event.preventDefault()
 		}
 	}
 
