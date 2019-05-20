@@ -26,7 +26,7 @@ class GesamtPreis {
 
 	set preis(preis) {
 		this.elem.dataset.value = preis
-		this.elem.innerHTML = GesamtPreis.formatCurrency(preis)
+		this.elem.textContent = GesamtPreis.formatCurrency(preis)
 	}
 
 	get preis() {
@@ -34,7 +34,7 @@ class GesamtPreis {
 	}
 
 	static formatCurrency(preis) {
-		return `${preis.toFixed(2)} &euro;`
+		return `${preis.toFixed(2)} €`
 	}
 }
 
@@ -88,6 +88,10 @@ class Warenkorb {
 		optionElem.dataset.preis = preis
 		return optionElem
 	}
+}
+
+function sendForm(event) {
+	event.target.form.submit()
 }
 
 

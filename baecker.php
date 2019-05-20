@@ -59,9 +59,9 @@ HTML;
 			echo <<<HTML
 			<tr>
 				<td>{$pizza['name']}</td>
-				<td><input type="radio" name="{$pizza['id']}" value="bestellt" $bestellt></td> 
-				<td><input type="radio" name="{$pizza['id']}" value="im_ofen" $im_ofen></td>
-				<td><input type="radio" name="{$pizza['id']}" value="fertig" $fertig></td>
+				<td><input onclick="sendForm(event)" type="radio" name="{$pizza['id']}" value="bestellt" $bestellt></td> 
+				<td><input onclick="sendForm(event)" type="radio" name="{$pizza['id']}" value="im_ofen" $im_ofen></td>
+				<td><input onclick="sendForm(event)" type="radio" name="{$pizza['id']}" value="fertig" $fertig></td>
 			</tr>
 HTML;
 		}

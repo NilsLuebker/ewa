@@ -63,9 +63,9 @@ HTML;
 						<th>geliefert</th>
 					</tr>
 					<tr>
-						<td><input type="radio" name="{$pizza['id']}" value="fertig" $fertig></td> 
-						<td><input type="radio" name="{$pizza['id']}" value="unterwegs" $unterwegs></td>
-						<td><input type="radio" name="{$pizza['id']}" value="geliefert" $geliefert></td>
+						<td><input onclick="sendForm(event)" type="radio" name="{$pizza['id']}" value="fertig" $fertig></td> 
+						<td><input onclick="sendForm(event)" type="radio" name="{$pizza['id']}" value="unterwegs" $unterwegs></td>
+						<td><input onclick="sendForm(event)" type="radio" name="{$pizza['id']}" value="geliefert" $geliefert></td>
 					</tr>
 				</table>
 </li>
