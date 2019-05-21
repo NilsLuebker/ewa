@@ -75,7 +75,6 @@ HTML;
 		echo
 <<<HTML
 			</ul>
-                <button type="submit" tabindex="1" accesskey="b">Aktualisieren</button>
             </form>
 		</main>
 HTML;

@@ -19,15 +19,16 @@ class BestellungPage extends Page
 
 	protected function getViewData()
 	{
-		$getPizzaStatus = $this->_database->prepare("SELECT PizzaName, Status, PizzaID FROM BestelltePizza JOIN Angebot ON PizzaNummer = fPizzaNummer");
+		$getPizzaStatus = $this->_database->prepare("SELECT PizzaName, Status, fBestellungID, PizzaID FROM angebot, bestelltepizza WHERE PizzaNummer = fPizzanummer AND fBestellungID NOT IN (SELECT BestellungID FROM bestellung, bestelltepizza WHERE BestellungID = fBestellungID GROUP BY BestellungID HAVING 'fertig' = all(SELECT Status FROM bestelltepizza WHERE fBestellungID = BestellungID)) ORDER BY fBestellungID");
 		$getPizzaStatus->execute();
 		$result = $getPizzaStatus->get_result();
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
 				$this->listItems[] = [
+					"bid" => $row["fBestellungID"],
 					"name" => $row["PizzaName"],
 					"status" => $row["Status"],
-					"id"=>$row["PizzaID"]
+					"id" => $row["PizzaID"]
 				];
 			}
 		}
@@ -51,11 +52,34 @@ class BestellungPage extends Page
                         <th>fertig</th>
                     </tr>
 HTML;
+		$lastBestellungId = -1;
 		foreach($this->listItems as $pizza) {
+			if($lastBestellungId == -1)
+				$lastBestellungId = $pizza['bid'];
 			$bestellt = $pizza['status'] == 'bestellt' ? 'checked' : '';
 			$im_ofen = $pizza['status'] == 'im_ofen' ? 'checked' : '';
 			$fertig = $pizza['status'] == 'fertig' ? 'checked' : '';
 			if(empty($bestellt) && empty($im_ofen) && empty($fertig)) continue;
+			if($pizza['bid'] != $lastBestellungId) {
+				echo <<<HTML
+			<tr>
+				<td style="background: darkgrey"></td>
+				<td style="background: darkgrey"></td>
+				<td style="background: darkgrey"></td>
+				<td style="background: darkgrey"></td>
+			</tr>
+HTML;
+				echo <<<HTML
+			<tr>
+				<td>{$pizza['name']}</td>
+				<td><input onclick="sendForm(event)" type="radio" name="{$pizza['id']}" value="bestellt" $bestellt></td>
+				<td><input onclick="sendForm(event)" type="radio" name="{$pizza['id']}" value="im_ofen" $im_ofen></td>
+				<td><input onclick="sendForm(event)" type="radio" name="{$pizza['id']}" value="fertig" $fertig></td>
+			</tr>
+HTML;
+				$lastBestellungId = $pizza['bid'];
+				continue;
+			}
 			echo <<<HTML
 			<tr>
 				<td>{$pizza['name']}</td>
@@ -68,7 +92,6 @@ HTML;
 		echo
 <<<HTML
 			</table>
-                <button type="submit" tabindex="1" accesskey="b">Aktualisieren</button>
             </form>
 		</main>
 HTML;

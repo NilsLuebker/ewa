@@ -39,10 +39,12 @@ class KundePage extends Page
 		$this->generatePageHeader("Pizzaservice - Kunde");
 		echo
 <<<HTML
+	<script defer src="scripts/status_update.js"></script>
 	<main id="bestellung">
 		<h1>Kunde</h1>
 		<section id="bestellstatus">
 			<h2>Bestellstatus</h2>
+			<div id="Bestellstatus">
 HTML;
 		foreach($this->listItems as $pizza) {
 			$name = htmlspecialchars($pizza['name']);
@@ -51,6 +53,7 @@ HTML;
 		}
 		echo
 <<<HTML
+			</div>
 			<a href="./bestellung.php">Neue Bestellung</a>
 		</section>
 	</main>
