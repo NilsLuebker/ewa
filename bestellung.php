@@ -35,12 +35,11 @@ class BestellungPage extends Page
 	protected function generateView()
 	{
 		$this->getViewData();
-		$this->generatePageHeader("Pizzaservice - Bestellung");
+		$this->generatePageHeader("Pizzaservice - Bestellung", 'bestellung');
 		echo
 <<<HTML
 
 		<main id="bestellung">
-			<h1>Bestellung</h1>
 			<section id="speisekarte">
 				<h2>Speisekarte</h2>
 				<ul>
@@ -58,7 +57,7 @@ HTML;
 				<h2>Warenkorb</h2>
 				<select id="Warenkorb" multiple name="pizzen[]" tabindex="0" size="0">
 				</select>
-				<p id="GesamtPreis">14.00 &euro;</p>
+				<p id="GesamtPreis">0.00 &euro;</p>
 				<input type="text" placeholder="Ihre Adresse" name="adresse" tabindex="1" required/>
 				<button onclick="gWarenkorb.removeAll()" type="button" tabindex="2">Alles L&ouml;schen</button>
 				<button onclick="gWarenkorb.removeSelected()" type="button" tabindex="3">Auswahl L&ouml;schen</button>

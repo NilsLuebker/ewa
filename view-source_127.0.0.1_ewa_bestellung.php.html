@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8"/>
+		<link rel="stylesheet" href="styles/main.css"/>
+		<script defer src="scripts/main.js"></script>		<title>Pizzaservice - Bestellung</title>
+	</head>
+	<body>
+	<nav>
+		<ul><li><a class="currentPage" href="./bestellung.php">Bestellung</a></li><li><a href="./kunde.php">Kunde</a></li><li><a href="./baecker.php">Baecker</a></li><li><a href="./fahrer.php">Fahrer</a></li>
+		<main id="bestellung">
+			<section id="speisekarte">
+				<h2>Speisekarte</h2>
+				<ul>
+						<li class="speisekarte-item" onclick="gWarenkorb.add('Margherita', 4.00)">
+							<img src="images/pizza.png" alt="Margherita">
+							<p>Margherita</p>
+							<p>4.00 &euro;</p>
+							<button>In den Warenkorb</button>
+						</li>
+						<li class="speisekarte-item" onclick="gWarenkorb.add('Salami', 4.50)">
+							<img src="images/pizza.png" alt="Salami">
+							<p>Salami</p>
+							<p>4.50 &euro;</p>
+							<button>In den Warenkorb</button>
+						</li>
+						<li class="speisekarte-item" onclick="gWarenkorb.add('Prosciutto', 5.50)">
+							<img src="images/pizza.png" alt="Prosciutto">
+							<p>Prosciutto</p>
+							<p>5.50 &euro;</p>
+							<button>In den Warenkorb</button>
+						</li>
+						<li class="speisekarte-item" onclick="gWarenkorb.add('Tonno', 5.00)">
+							<img src="images/pizza.png" alt="Tonno">
+							<p>Tonno</p>
+							<p>5.00 &euro;</p>
+							<button>In den Warenkorb</button>
+						</li>
+
+				</ul>
+			</section>
+			<form id="bestell-form" action="./kunde.php" method="POST" onsubmit="gWarenkorb.validate(event)">
+				<h2>Warenkorb</h2>
+				<select id="Warenkorb" multiple name="pizzen[]" tabindex="0" size="0">
+				</select>
+				<p id="GesamtPreis">0.00 &euro;</p>
+				<input type="text" placeholder="Ihre Adresse" name="adresse" tabindex="1" required/>
+				<button onclick="gWarenkorb.removeAll()" type="button" tabindex="2">Alles L&ouml;schen</button>
+				<button onclick="gWarenkorb.removeSelected()" type="button" tabindex="3">Auswahl L&ouml;schen</button>
+				<button onclick="gWarenkorb.selectAll()" type="submit" tabindex="4">Bestellen</button>
+			</form>
+	</body>
+</html>

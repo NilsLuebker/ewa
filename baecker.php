@@ -37,7 +37,7 @@ class BestellungPage extends Page
 	protected function generateView()
 	{
 		$this->getViewData();
-		$this->generatePageHeader("Pizzaservice - Baecker", True);
+		$this->generatePageHeader("Pizzaservice - Baecker", 'baecker', True);
 		echo
 <<<HTML
 	<main id="bestellung">

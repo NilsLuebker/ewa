@@ -46,7 +46,8 @@ class Warenkorb {
 
 	add(name, preis) {
 		this.elem.add(Warenkorb.createOptionElement(name, preis))
-		this.elem.size++
+		if (this.elem.size <10)
+			this.elem.size++
 		this.gesamtPreis.add(preis)
 	}
 
@@ -63,7 +64,10 @@ class Warenkorb {
 			this.gesamtPreis.remove(options[index].dataset.preis)
 			options.remove(index)
 		}
-		this.elem.size = options.length
+		if(options.length <10)
+			this.elem.size = options.length
+		else
+			this.elem.size=10	
 	}
 
 	removeAll() {
@@ -94,6 +98,21 @@ function sendForm(event) {
 	event.target.form.submit()
 }
 
+function expandNavbar(event) {
+	let navList = document.getElementById('nav-list')
+	p(window.innerWidth)
+	if(window.innerWidth > 530) {
+		navList.style.display = 'flex'
+		return
+	}
+	if (!navList.style.display || navList.style.display == "none") {
+		navList.style.display = 'flex'
+	}
+	else {
+		navList.style.display = 'none'
+	}
+
+}
 
 function p(msg) {
 	console.log(msg)

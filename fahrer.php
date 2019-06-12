@@ -38,12 +38,11 @@ class BestellungPage extends Page
 	protected function generateView()
 	{
 		$this->getViewData();
-		$this->generatePageHeader("Pizzaservice - Fahrer", True);
+		$this->generatePageHeader("Pizzaservice - Fahrer", 'fahrer', True);
 		echo
 <<<HTML
-	<main id="bestellung">
-			<h1>Fahrer</h1>
-			<form id="speisekarte" action="fahrer.php" method="POST">
+	<main id="fahrer">
+			<form id="lieferstatus" action="fahrer.php" method="POST">
 				<h2>Bestellungen</h2>
 				<ul>
 HTML;

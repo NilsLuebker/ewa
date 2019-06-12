@@ -36,12 +36,11 @@ class KundePage extends Page
 	protected function generateView()
 	{
 		$this->getViewData();
-		$this->generatePageHeader("Pizzaservice - Kunde");
+		$this->generatePageHeader("Pizzaservice - Kunde", 'kunde');
 		echo
 <<<HTML
 	<script defer src="scripts/status_update.js"></script>
 	<main id="bestellung">
-		<h1>Kunde</h1>
 		<section id="bestellstatus">
 			<h2>Bestellstatus</h2>
 			<div id="Bestellstatus">
@@ -54,7 +53,7 @@ HTML;
 		echo
 <<<HTML
 			</div>
-			<a href="./bestellung.php">Neue Bestellung</a>
+			<button><a href="./bestellung.php">Neue Bestellung</a></button>
 		</section>
 	</main>
 HTML;
