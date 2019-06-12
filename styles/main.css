@@ -1,0 +1,115 @@
+body {
+    margin-top: 2rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+nav {
+    background-color: burlywood;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 2rem;
+    display: flex;
+    align-content: center;
+}
+
+nav > ul {
+    background-color: lightcoral;
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+nav > ul > li > a {
+    height: 100%;
+    color: white;
+    background-color: red;
+    text-decoration: none;
+    padding: 0 2rem;
+}
+
+nav > ul > li > a:hover {
+    color: red;
+    background-color: wheat;
+    text-decoration: none;
+}
+#speisekarte{
+    float: left;
+    width: 65%;
+}
+
+#speisekarte > ul{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 10rem);
+    grid-gap: 2rem;
+    background-color: white;
+    list-style: none;
+    justify-content: space-evenly;
+    margin: 0;
+    padding: 2rem;
+}
+
+.speisekarte-item{
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 13px 0px lightgray;
+    transition: box-shadow 500ms;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+}
+.speisekarte-item:hover{
+    box-shadow: 4px 2.5px 13px 0px gray;
+}
+.speisekarte-item > p{
+    margin: 0.25rem auto;
+}
+
+.speisekarte-item > img {
+    margin-bottom: 1rem;
+}
+button{
+    margin: 1rem auto 0 auto;
+    background-color: whitesmoke;
+    transition: background-color 300ms;
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    padding: 0.2rem 0.5rem;
+}
+button:hover{
+    background-color: white;
+}
+
+#bestell-form{
+    --bestell-form-padding: 1rem;
+    width: 30%;
+    position: fixed;
+    right: 0;
+    height: 50%;
+    top: 25%;
+    bottom: 25%;
+    padding: var(--bestell-form-padding);
+    background-color: #EEE;
+    border-radius: 5px;
+}
+#bestell-form > h2{
+    margin-top: 0;
+}
+#bestell-form > input{
+    --input-border-width: 1px;
+    --input-padding: 2px;
+    width: calc(100% - (2 * var(--input-padding)) - (2 * var(--input-border-width)) - var(--bestell-form-padding));
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: var(--input-border-width) solid lightgray;
+    padding: var(--input-padding) 10px;
+}
+#bestell-form > button{
+    margin-right: 3rem;  
+}
