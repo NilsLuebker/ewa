@@ -8,8 +8,8 @@ DROP TABLE IF EXISTS Bestellung;
 
 CREATE TABLE Angebot (
 	PizzaNummer SERIAL,
-	PizzaName VARCHAR(12) NOT NULL,
-	Bilddatei VARCHAR(12) NOT NULL,
+	PizzaName VARCHAR(30) NOT NULL,
+	Bilddatei VARCHAR(30) NOT NULL,
 	Preis DECIMAL(15, 2) NOT NULL,
 	PRIMARY KEY(PizzaNummer)
 );

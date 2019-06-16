@@ -1,6 +1,6 @@
 <?php
 require_once 'classes/Page.php';
-require_once 'classes/PizzaListItem.php';
+require_once 'classes/FahrerListItem.php';
 
 class BestellungPage extends Page
 {
@@ -19,18 +19,18 @@ class BestellungPage extends Page
 
 	protected function getViewData()
 	{
-		$getLieferStatus = $this->_database->prepare("SELECT Status, Adresse, BestellungID, GROUP_CONCAT(PizzaName) as Pizzen, SUM(Preis) as Gesamtpreis FROM Bestellung JOIN (BestelltePizza JOIN Angebot on PizzaNummer = fPizzanummer) on fBestellungID = BestellungID GROUP BY BestellungID HAVING 'fertig' = ALL(SELECT Status FROM BestelltePizza WHERE fBestellungID = BestellungID) OR 'unterwegs' = ALL(SELECT Status FROM BestelltePizza WHERE fBestellungID = BestellungID) OR 'geliefert' = ALL(SELECT Status FROM BestelltePizza WHERE fBestellungID = BestellungID)");
+		$getLieferStatus = $this->_database->prepare("SELECT Status, Adresse, BestellungID, GROUP_CONCAT(PizzaName) as Pizzen, SUM(Preis) as Gesamtpreis FROM Bestellung JOIN (BestelltePizza JOIN Angebot on PizzaNummer = fPizzanummer) on fBestellungID = BestellungID WHERE NOT EXISTS(SELECT * FROM BestelltePizza where fBestellungID = BestellungID and Status in ('bestellt', 'im_ofen', 'geliefert')) GROUP BY BestellungID");
 		$getLieferStatus->execute();
 		$result = $getLieferStatus->get_result();
 		if ($result->num_rows > 0) {
 			while($row = $result->fetch_assoc()) {
-				$this->listItems[] = [
-					"adresse" => htmlspecialchars($row["Adresse"]),
-					"pizzen" => htmlspecialchars($row["Pizzen"]),
-					"status" => htmlspecialchars($row["Status"]),
-					"id" => htmlspecialchars($row["BestellungID"]),
-					"preis" => htmlspecialchars($row["Gesamtpreis"])
-				];
+				$this->listItems[] = new FahrerListItem(
+					htmlspecialchars($row["Adresse"]),
+					htmlspecialchars($row["Pizzen"]),
+					htmlspecialchars($row["Status"]),
+					htmlspecialchars($row["BestellungID"]),
+					htmlspecialchars($row["Gesamtpreis"])
+				);
 			}
 		}
 	}
@@ -46,31 +46,17 @@ class BestellungPage extends Page
 				<h2>Bestellungen</h2>
 				<ul>
 HTML;
-		foreach($this->listItems as $pizza) {
-			$fertig = $pizza['status'] == 'fertig' ? 'checked' : '';
-			$unterwegs = $pizza['status'] == 'unterwegs' ? 'checked' : '';
-			$geliefert = $pizza['status'] == 'geliefert' ? 'checked' : '';
-			//if(empty($bestellt) || empty($im_ofen) || empty($fertig)){
-			echo <<<HTML
-			<li>
-				<p>{$pizza['adresse']} {$pizza['preis']}€</p>
-				<p>{$pizza['pizzen']}</p>
-				<table>
-					<tr>
-						<th>fetig</th>
-						<th>unterwegs</th> 
-						<th>geliefert</th>
-					</tr>
-					<tr>
-						<td><input onclick="sendForm(event)" type="radio" name="{$pizza['id']}" value="fertig" $fertig></td> 
-						<td><input onclick="sendForm(event)" type="radio" name="{$pizza['id']}" value="unterwegs" $unterwegs></td>
-						<td><input onclick="sendForm(event)" type="radio" name="{$pizza['id']}" value="geliefert" $geliefert></td>
-					</tr>
-				</table>
-</li>
+		if(empty($this->listItems)) {
+			echo
+<<<HTML
+				<li class="lieferstatus-item"><p>Keine Bestellungen bereit fuer die Auslieferung</p></li>
 HTML;
+		} else {
+			foreach($this->listItems as $pizza) {
+				$pizza->generateView();
 			}
-		
+		}
+
 		echo
 <<<HTML
 			</ul>

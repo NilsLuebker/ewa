@@ -40,19 +40,24 @@ class KundePage extends Page
 		echo
 <<<HTML
 	<script defer src="scripts/status_update.js"></script>
-	<main id="bestellung">
-		<section id="bestellstatus">
+	<main id="kunde">
+		<section>
 			<h2>Bestellstatus</h2>
-			<div id="Bestellstatus">
+			<ul id="bestellstatus">
 HTML;
-		foreach($this->listItems as $pizza) {
-			$name = htmlspecialchars($pizza['name']);
-			$status = htmlspecialchars($pizza['status']);
-			echo "<p>{$name}: {$status}</p>";
+		if(empty($this->listItems)) {
+			echo "<p>Keine bestellung aufgegeben</p>";
+		} else {
+			foreach($this->listItems as $pizza) {
+				$name = htmlspecialchars($pizza['name']);
+				$status = htmlspecialchars($pizza['status']);
+				echo "<li>{$name}: </li>";
+				echo "<li>{$status}</li>";
+			}
 		}
 		echo
 <<<HTML
-			</div>
+			</ul>
 			<button><a href="./bestellung.php">Neue Bestellung</a></button>
 		</section>
 	</main>

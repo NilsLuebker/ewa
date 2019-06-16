@@ -1,194 +1,364 @@
 html{
-    background-image: url("../images/food.png");
+	background-image: url("../images/food.png");
 }
 body {
-    --nav-height: 3rem;
-    margin:0;
-    margin-top: var(--nav-height);
-    font-family: 'Roboto', sans-serif;
+	--nav-height: 3rem;
+	margin:0;
+	margin-top: var(--nav-height);
+	font-family: 'Roboto', sans-serif;
 
 }
 
 
 nav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: var(--nav-height);
-    display: flex;
-    align-content: center;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: var(--nav-height);
+	display: flex;
+	align-content: center;
 }
 
 nav > ul {
-    background-color: lightgray;
-    display: flex;
-    justify-content: space-evenly;
-    align-content: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
+	background-color: lightgray;
+	display: flex;
+	justify-content: space-evenly;
+	align-content: center;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
 }
 nav > ul >li{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 nav > ul > li > a, .currentPage:hover{
-    color: black;
-    text-decoration: none;
-    padding: 0.5rem 2rem;
-    border-radius: 5px;
+	color: black;
+	text-decoration: none;
+	padding: 0.5rem 2rem;
+	border-radius: 5px;
 }
 nav > ul > li > a:active,.currentPage {
-    background-color: grey;
-    color: white;
-    text-decoration: none;
+	background-color: grey;
+	color: white;
+	text-decoration: none;
 }
 nav > ul > li > a:hover {
-    background-color: white;
-    text-decoration: none;
+	background-color: white;
+	text-decoration: none;
 }
 #speisekarte{
-    float: left;
-    width: 65%;
-    margin-top: 2rem;
+	float: left;
+	width: 65%;
+	margin-top: 2rem;
 }
 #speisekarte > h2{
-    padding-left: 2rem;
+	padding-left: 2rem;
 }
 
 #speisekarte > ul{
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 10rem);
-    grid-gap: 2rem;
-    list-style: none;
-    justify-content: space-evenly;
-    margin: 0;
-    padding: 2rem;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, 11rem);
+	grid-gap: 2rem;
+	list-style: none;
+	justify-content: space-evenly;
+	margin: 0;
+	padding: 2rem;
 }
 
 .speisekarte-item{
-    background-color: white;
-    border-radius: 5px;
-    box-shadow: 0px 0px 13px 0px lightgray;
-    transition: box-shadow 500ms;
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem;
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0px 0px 13px 0px #c3c3c3;
+	transition: box-shadow 500ms;
+	display: flex;
+	flex-direction: column;
+	padding: 1.5rem;
 }
 .speisekarte-item:hover{
-    box-shadow: 4px 2.5px 13px 0px gray;
+	box-shadow: 4px 2.5px 13px 0px gray;
 }
 .speisekarte-item > p{
-    margin: 0.25rem auto;
+	margin: 0.25rem auto;
 }
 
 .speisekarte-item > img {
-    margin-bottom: 1rem;
+	margin-bottom: 1rem;
+	object-position: center;
+	object-fit: cover;
+	height: 7rem;
 }
 button{
-    margin: 1rem auto 0 auto;
-    background-color: whitesmoke;
-    transition: background-color 300ms;
-    border-radius: 5px;
-    border: 1px solid lightgray;
-    padding: 0.2rem 0.5rem;
+	margin: 1rem auto 0 auto;
+	color: black;
+	background-color: whitesmoke;
+	border-radius: 5px;
+	border: 1px solid lightgray;
+	padding: 0.2rem 0.5rem;
 }
 button > a{
-    text-decoration: none;
+	text-decoration: none;
+	color: black;
 }
 button:hover{
-    background-color: white;
+	background-color: #c0c0c0;
+	border-color: grey;
+	cursor: pointer;
 }
 
 #bestell-form{
-    --bestell-form-padding: 1rem;
-    width: 30%;
-    position: fixed;
-    right: 0;
-    padding: var(--bestell-form-padding);
-    background-color: #EEE;
-    border-radius: 5px 0px 0px 5px;
-    margin-top: 2rem;
+	--bestell-form-padding: 1rem;
+	width: 30%;
+	position: fixed;
+	right: 0;
+	padding: var(--bestell-form-padding);
+	background-color: #EEE;
+	border-radius: 5px 0px 0px 5px;
+	margin-top: 2rem;
 }
 #bestell-form > h2{
-    margin-top: 0;
+	margin-top: 0;
 }
-#bestell-form > input{
-    --input-border-width: 1px;
-    --input-padding: 2px;
-    width: calc(100% - (2 * var(--input-padding)) - (2 * var(--input-border-width)) - var(--bestell-form-padding));
-    margin-bottom: 1rem;
-    border-radius: 5px;
-    border: var(--input-border-width) solid lightgray;
-    padding: var(--input-padding) 10px;
+#bestell-form > input {
+	--input-border-width: 1px;
+	width: 100%;
+	margin-bottom: 1rem;
+	border-radius: 5px;
+	border: var(--input-border-width) solid lightgray;
+	padding: 0.2rem 0;
 }
 #bestell-form > button{
-    margin-right: 3rem;  
+	margin-right: 3rem;
 }
-#Warenkorb{
-    background-color:lightgrey;
-    width: 100%;
-    border-radius: 5px;
-    padding: 2px;
+#Warenkorb {
+	background-color:lightgrey;
+	width: 100%;
+	border-radius: 5px;
+	padding: 2px;
+}
 
+/* Fahrer Seite */
 
-}
-#lieferstatus{
-    width: 100%;
-    margin-top: 2rem;
-}
-#lieferstatus > ul{
-    list-style-type: none;
-}
-#lieferstatus > h2{
-    padding-left: 1rem;
-}
-#lieferstatus > ul >li{
-    display: inline-block;
-    margin: 1rem 1rem; 
-    border-radius: 5px;
-    background-color: white;
-    box-shadow: 4px 2.5px 13px 0px lightgray;
-    padding: 0.5rem 2rem;
-
-}
 #fahrer{
-    padding-top: 0.5rem;
+	padding: 2rem;
 }
+
+#lieferstatus{
+	width: 100%;
+	margin-top: 2rem;
+}
+
+#lieferstatus > ul {
+	list-style-type: none;
+	padding: 0;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+#lieferstatus > h2 {
+	padding-left: 1rem;
+}
+
+.lieferstatus-item {
+	display: flex;
+	flex-direction: column;
+	max-width: 20rem;
+	margin: 1rem 1rem;
+	border-radius: 5px;
+	background-color: white;
+	box-shadow: 4px 2.5px 13px 0px lightgray;
+	padding: 0.5rem 2rem;
+}
+
+.lieferstatus-item > p {
+	margin: .3rem 0;
+}
+
+.lieferstatus-item > ul {
+	list-style: none;
+	padding: 1rem 0;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.lieferstatus-item > div {
+	display: grid;
+	grid-template-columns: auto auto;
+	margin-top: auto;
+}
+
+.lieferstatus-item > ul > li {
+	margin: .4rem 0;
+	padding: .4rem 0rem;
+	border-radius: .2rem;
+}
+
+.lieferstatus-item > ul > li > strong {
+	background-color: lightgray;
+	font-weight: normal;
+	padding: .2rem .6rem;
+	border-radius: 5rem;
+	margin-right: .4rem;
+}
+
+/* Fahrer Seite End */
+
+/* Kunde Seite */
+
+#kunde {
+	padding: 2rem;
+}
+
+#bestellstatus {
+	list-style: none;
+	display: grid;
+	grid-template-columns: 12rem auto;
+	grid-gap: 0.5rem 0;
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0px 0px 13px 0px #c3c3c3;
+	transition: box-shadow 500ms;
+	padding: 1.5rem;
+	margin: 2rem;
+}
+
+/* Kunde Seite End */
+
+/* Baecker Seite */
+
+#baecker {
+	padding: 2rem;
+}
+
+.baecker-bestellung {
+	--baecker-bestellung-padding: 1.5rem;
+	display: inline-table;
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0px 0px 13px 0px #c3c3c3;
+	transition: box-shadow 500ms;
+	padding: var(--baecker-bestellung-padding);
+	margin: 2rem;
+}
+
+.baecker-bestellung:hover {
+	box-shadow: 4px 2.5px 13px 0px gray;
+}
+
+.baecker-bestellung > .table-row {
+	display: table-row;
+}
+
+.baecker-bestellung > .table-row > .table-cell {
+	display: table-cell;
+	padding: 0.2rem 1rem;
+}
+
+/* Baecker Seite End */
+
 @media only screen and (max-width: 650px) {
-    #bestell-form {
-        --bestell-form-padding: 1rem;
-        clear: left;
-        width: 100%;
-        position: initial;
-        padding: var(--bestell-form-padding);
-        background-color: #EEE;
-        border-radius: 5px 0px 0px 5px;
-        margin-top: 2rem;
-    }
-    #speisekarte{
-        width: 100%;
-        margin-top: 2rem;
-    }
+	#speisekarte > ul{
+		grid-template-columns: repeat(auto-fill, 14rem);
+	}
+	.speisekarte-item > img {
+		height: 9rem;
+	}
+	#bestell-form {
+		--bestell-form-padding: 1rem;
+		clear: left;
+		width: calc(100% - (2 * var(--bestell-form-padding)));
+		position: initial;
+		padding: var(--bestell-form-padding);
+	}
+	#speisekarte{
+		width: 100%;
+		margin-top: 2rem;
+	}
+
+	/* Baecker Seite */
+
+	#baecker {
+		padding: 2rem 0;
+	}
+
+	#baecker h2 {
+		margin-left: 2rem;
+	}
+
+	.baecker-bestellung {
+		width: calc(100% - (2 * var(--baecker-bestellung-padding)));
+		box-shadow: none;
+		padding: 1.5rem;
+		margin: 2rem 0;
+	}
+
+	.baecker-bestellung:hover {
+		box-shadow: none;
+	}
+
+
+	/* Baecker Seite End */
 }
 
 @media only screen and (max-width: 530px) {
-    nav {
-        background-image: url('../images/dark_embroidery.png'); 
-    }
-    nav > ul {
-        transform: translateY(3rem);
-        flex-direction: column;
-        height: fit-content;
-        overflow: hidden;
-        display: none;
-    }
-    nav > ul > li, nav > ul > li > a {
-        width: 100%;
-        border-radius: 0px;
-    }
+	nav {
+		background-image: url('../images/dark_embroidery.png');
+	}
+	nav > ul {
+		transform: translateY(3rem);
+		flex-direction: column;
+		height: fit-content;
+		overflow: hidden;
+		display: none;
+	}
+	nav > ul > li, nav > ul > li > a {
+		width: 100%;
+		border-radius: 0px;
+	}
+	/* Kunde Seite */
 
+	#kunde {
+		padding: 2rem 0;
+	}
+
+	#kunde h2, #kunde button {
+		margin-left: 2rem;
+	}
+
+	#bestellstatus {
+		list-style: none;
+		display: grid;
+		grid-template-columns: 12rem auto;
+		grid-gap: 0.5rem 0;
+		background-color: white;
+		border-radius: 5px;
+		box-shadow: 0px 0px 13px 0px #c3c3c3;
+		transition: box-shadow 500ms;
+		padding: 1.5rem;
+		margin: 2rem;
+	}
+
+	/* Kunde Seite End */
+}
+
+@media only screen and (max-width: 450px) {
+
+	/* Baecker Seite */
+
+	.baecker-bestellung {
+		--baecker-bestellung-padding: 0.8rem;
+		padding: 1.5rem var(--baecker-bestellung-padding);
+	}
+
+	.baecker-bestellung > .table-row > .table-cell {
+		display: table-cell;
+		padding: 0.2rem 0;
+	}
+
+	/* Baecker Seite End */
 }

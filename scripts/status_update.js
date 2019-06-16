@@ -8,28 +8,28 @@ window.onload = () => {
 function process(jsonString) {
 	let statusArr = JSON.parse(jsonString)
 	if(!statusArr || !Array.isArray(statusArr)) return
-	let bestellstatus = document.getElementById('Bestellstatus')
+	let bestellstatus = document.getElementById('bestellstatus')
 	if(!bestellstatus) return
 	clearChilds(bestellstatus)
 	for(let statusObj of statusArr) {
-		let statusPara = createStatusLine(statusObj)
-		if(!statusPara) continue
-		bestellstatus.appendChild(statusPara)
+		if(!statusObj.name && !statusObj.status) continue
+		bestellstatus.appendChild(createListItem(statusObj.name))
+		bestellstatus.appendChild(createListItem(statusObj.status))
 	}
 }
 
 function clearChilds(htmlElem) {
-	while(htmlElem.firstChild) {
+	while(htmlElem.hasChildNodes()) {
 		htmlElem.removeChild(htmlElem.firstChild)
 	}
 }
 
-function createStatusLine(statusObj) {
-	if(!(statusObj && statusObj.name && statusObj.status)) return undefined
-	let para = document.createElement('p')
-	let textNode = document.createTextNode(`${statusObj.name}: ${statusObj.status}`)
-	para.appendChild(textNode)
-	return para
+function createListItem(text) {
+	if(!text) return
+	let listItem = document.createElement('li')
+	let textNode = document.createTextNode(`${text}`)
+	listItem.appendChild(textNode)
+	return listItem
 }
 
 function requestData() {

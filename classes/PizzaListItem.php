@@ -5,9 +5,9 @@ class PizzaListItem {
 	private $pizza_price;
 
 	public function __construct($image_file_name, $pizza_name, $pizza_price) {
-		$this->image_file_name = $image_file_name;
-		$this->pizza_name = $pizza_name;
-		$this->pizza_price = $pizza_price;
+		$this->image_file_name = htmlspecialchars($image_file_name);
+		$this->pizza_name = htmlspecialchars($pizza_name);
+		$this->pizza_price = htmlspecialchars($pizza_price);
 	}
 
 	public function generateView() {
