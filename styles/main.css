@@ -78,9 +78,11 @@ nav > ul > li > a:hover {
 	flex-direction: column;
 	padding: 1.5rem;
 }
+
 .speisekarte-item:hover{
 	box-shadow: 4px 2.5px 13px 0px gray;
 }
+
 .speisekarte-item > p{
 	margin: 0.25rem auto;
 }
@@ -91,22 +93,31 @@ nav > ul > li > a:hover {
 	object-fit: cover;
 	height: 7rem;
 }
-button{
-	margin: 1rem auto 0 auto;
+
+button, .link-button {
 	color: black;
 	background-color: whitesmoke;
 	border-radius: 5px;
 	border: 1px solid lightgray;
 	padding: 0.2rem 0.5rem;
 }
-button > a{
+
+button > a, .link-button {
 	text-decoration: none;
 	color: black;
 }
-button:hover{
+
+button:hover, .link-button:hover {
 	background-color: #c0c0c0;
 	border-color: grey;
 	cursor: pointer;
+}
+
+button:disabled, button[disabled]:hover {
+	background-color: grey;
+	border-color: black;
+	cursor: initial;
+	color: white;
 }
 
 #bestell-form{
@@ -119,9 +130,11 @@ button:hover{
 	border-radius: 5px 0px 0px 5px;
 	margin-top: 2rem;
 }
+
 #bestell-form > h2{
 	margin-top: 0;
 }
+
 #bestell-form > input {
 	--input-border-width: 1px;
 	width: 100%;
@@ -130,9 +143,14 @@ button:hover{
 	border: var(--input-border-width) solid lightgray;
 	padding: 0.2rem 0;
 }
-#bestell-form > button{
-	margin-right: 3rem;
+
+#bestell-form > div {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
 }
+
 #Warenkorb {
 	background-color:lightgrey;
 	width: 100%;
@@ -188,7 +206,7 @@ button:hover{
 
 .lieferstatus-item > div {
 	display: grid;
-	grid-template-columns: auto auto;
+	grid-template-columns: 80% 20%;
 	margin-top: auto;
 }
 
@@ -250,6 +268,13 @@ button:hover{
 	box-shadow: 4px 2.5px 13px 0px gray;
 }
 
+.baecker-bestellung > h3 {
+	margin: 0;
+	margin-bottom: 1rem;
+	padding-left: 1rem;
+	width: 100%;
+}
+
 .baecker-bestellung > .table-row {
 	display: table-row;
 }
@@ -307,7 +332,10 @@ button:hover{
 
 @media only screen and (max-width: 530px) {
 	nav {
-		background-image: url('../images/dark_embroidery.png');
+		background-image: url('../images/baseline_menu_black_18dp.png');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-color: lightgray;
 	}
 	nav > ul {
 		transform: translateY(3rem);
@@ -348,6 +376,14 @@ button:hover{
 
 @media only screen and (max-width: 450px) {
 
+	/* Fahrer Seite */
+
+	.lieferstatus-item {
+		margin: 1rem auto;
+	}
+
+	/* Fahrer Seite End */
+
 	/* Baecker Seite */
 
 	.baecker-bestellung {
@@ -361,4 +397,23 @@ button:hover{
 	}
 
 	/* Baecker Seite End */
+}
+
+@media only screen and (max-width: 450px) {
+	/* Fahrer Seite */
+
+	#fahrer {
+		padding: 2rem 0;
+	}
+
+	.lieferstatus > ul {
+		flex-direction: column;
+	}
+
+	.lieferstatus-item {
+		margin: 1rem 0;
+		width: 100%;
+	}
+
+	/* Fahrer Seite End */
 }

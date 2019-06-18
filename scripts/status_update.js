@@ -41,6 +41,6 @@ function requestData() {
 function processData() {
 	if(request.readyState != 4) return
 	if(request.status != 200) return console.error('Uebertragung fehlgeschlagen')
-	if(request.responseText == null) return console.error('Dokument ist leer')
+	if(request.responseText) return console.error('Dokument ist leer')
 	process(request.responseText)
 }

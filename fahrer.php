@@ -32,6 +32,9 @@ class BestellungPage extends Page
 					htmlspecialchars($row["Gesamtpreis"])
 				);
 			}
+			usort($this->listItems, function ($a, $b) {
+				return $a->id > $b->id;
+			});
 		}
 	}
 

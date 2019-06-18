@@ -1,14 +1,24 @@
 "use strict";
 var gWarenkorb = null
 
-window.onload = () => {
+window.addEventListener('load', _ => {
 	const gesamtPreisElem = document.getElementById('GesamtPreis')
 	const warenkorbElem = document.getElementById('Warenkorb')
+	const bestellenBtn = document.getElementById('BestellenButton')
 	if(gesamtPreisElem && warenkorbElem) {
 		const gesamtPreis = new GesamtPreis(gesamtPreisElem)
-		gWarenkorb = new Warenkorb(warenkorbElem, gesamtPreis)
+		gWarenkorb = new Warenkorb(warenkorbElem, gesamtPreis, bestellenBtn)
 	}
-}
+})
+
+document.addEventListener("DOMContentLoaded", _ => {
+	var scrollpos = localStorage.getItem('scrollpos');
+	if (scrollpos) window.scrollTo(0, scrollpos);
+});
+
+window.addEventListener('beforeunload', _ => {
+	localStorage.setItem('scrollpos', window.scrollY);
+})
 
 class GesamtPreis {
 	constructor(gesamtPreisElem) {
@@ -39,9 +49,12 @@ class GesamtPreis {
 }
 
 class Warenkorb {
-	constructor(warenkorbElem, gesamtPreis) {
+	constructor(warenkorbElem, gesamtPreis, bestellenBtn) {
 		this.elem = warenkorbElem
 		this.gesamtPreis = gesamtPreis
+		this.bestellenBtn = bestellenBtn
+		this.addressValue = ""
+		this.validateBestellenBtn()
 	}
 
 	add(name, preis) {
@@ -49,6 +62,7 @@ class Warenkorb {
 		if (this.elem.size <10)
 			this.elem.size++
 		this.gesamtPreis.add(preis)
+		this.validateBestellenBtn()
 	}
 
 	selectAll() {
@@ -64,10 +78,11 @@ class Warenkorb {
 			this.gesamtPreis.remove(options[index].dataset.preis)
 			options.remove(index)
 		}
-		if(options.length <10)
+		if(options.length < 10)
 			this.elem.size = options.length
 		else
-			this.elem.size=10	
+			this.elem.size=10
+		this.validateBestellenBtn()
 	}
 
 	removeAll() {
@@ -77,6 +92,19 @@ class Warenkorb {
 			this.elem.options.remove(0)
 		}
 		this.elem.size = 0
+		this.validateBestellenBtn()
+	}
+
+	addressInput(value) {
+		this.addressValue = value
+		this.validateBestellenBtn()
+	}
+
+	validateBestellenBtn() {
+		if(this.addressValue && this.elem.options.length > 0)
+			this.bestellenBtn.disabled = false
+		else
+			this.bestellenBtn.disabled = true
 	}
 
 	validate(event) {
@@ -100,7 +128,6 @@ function sendForm(event) {
 
 function expandNavbar(event) {
 	let navList = document.getElementById('nav-list')
-	p(window.innerWidth)
 	if(window.innerWidth > 530) {
 		navList.style.display = 'flex'
 		return
@@ -109,7 +136,7 @@ function expandNavbar(event) {
 		navList.style.display = 'flex'
 	}
 	else {
-		navList.style.display = 'none'
+		navList.style.removeProperty('display')
 	}
 
 }

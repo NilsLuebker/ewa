@@ -33,6 +33,7 @@ class BestellungPage extends Page
 					"id" => $row["PizzaID"]
 				]);
 			}
+			ksort($this->listItems);
 		}
 	}
 
@@ -50,6 +51,7 @@ HTML;
 			echo
 <<<HTML
 			<section class="baecker-bestellung">
+				<h3>Bestellnummer: {$bestell_id}</h3>
 				<div class="table-row">
 					<div class="table-cell"></div>
 					<div class="table-cell">bestellt</div>

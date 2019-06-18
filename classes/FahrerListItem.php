@@ -1,13 +1,13 @@
 <?php
 class FahrerListItem {
-	private $adresse;
-	private $pizzen;
-	private $status;
-	private $id;
-	private $preis;
-	private $fertig;
-	private $unterwegs;
-	private $geliefert;
+	public $adresse;
+	public $pizzen;
+	public $status;
+	public $id;
+	public $preis;
+	public $fertig;
+	public $unterwegs;
+	public $geliefert;
 
 	public function __construct($adresse, $pizzen, $status, $id, $preis) {
 		$this->adresse = $adresse;
@@ -20,12 +20,14 @@ class FahrerListItem {
 		$this->geliefert = $status == 'geliefert' ? 'checked' : '';
 		$pizzen = explode(",", $this->pizzen);
 		$this->pizzen = array_count_values($pizzen);
+		ksort($this->pizzen);
 	}
 
 	public function generateView() {
 				echo
 <<<HTML
 				<li class="lieferstatus-item">
+					<h3>Bestellnummer: {$this->id}</h3>
 					<p>Adresse: {$this->adresse}</p>
 					<p>Preis: {$this->preis}€</p>
 					<ul>

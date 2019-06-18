@@ -24,21 +24,23 @@ abstract class Page
 
 		$headline = htmlspecialchars($headline);
 		header("Content-type: text/html; charset=UTF-8");
-		echo 
+		echo
 <<<HTML
 <!doctype html>
 <html lang="de">
 	<head>
 		<meta charset="UTF-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<link rel="stylesheet" href="styles/main.css"/>
 		<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	  rel="stylesheet">
 		<script defer src="scripts/main.js"></script>
 HTML;
 		if($autorefresh){
-			echo "<meta http-equiv=\"refresh\" content=\"5;URL='{$_SERVER['PHP_SELF']}'\">";
+			echo "<meta http-equiv=\"refresh\" content=\"5; URL={$_SERVER['PHP_SELF']}\">";
 		}
-		echo 
+		echo
 <<<HTML
 		<title>$headline</title>
 	</head>
@@ -53,7 +55,7 @@ HTML;
 			else
 				echo "<li><a href=\"./{$page}.php\">{$page_name}</a></li>";
 		}
-	echo	
+	echo
 <<<HTML
 		</ul>
 	</nav>

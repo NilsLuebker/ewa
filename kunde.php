@@ -46,7 +46,7 @@ class KundePage extends Page
 			<ul id="bestellstatus">
 HTML;
 		if(empty($this->listItems)) {
-			echo "<p>Keine bestellung aufgegeben</p>";
+			echo "<li>Keine bestellung aufgegeben</li>";
 		} else {
 			foreach($this->listItems as $pizza) {
 				$name = htmlspecialchars($pizza['name']);
@@ -58,7 +58,7 @@ HTML;
 		echo
 <<<HTML
 			</ul>
-			<button><a href="./bestellung.php">Neue Bestellung</a></button>
+			<a class="link-button" href="./bestellung.php">Neue Bestellung</a>
 		</section>
 	</main>
 HTML;

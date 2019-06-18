@@ -55,15 +55,17 @@ HTML;
 			</section>
 			<form id="bestell-form" action="./kunde.php" method="POST" onsubmit="gWarenkorb.validate(event)">
 				<h2>Warenkorb</h2>
-				<select id="Warenkorb" multiple name="pizzen[]" tabindex="0" size="0">
+				<select id="Warenkorb" multiple name="pizzen[]" tabindex="0">
 				</select>
 				<p id="GesamtPreis">0.00 &euro;</p>
-				<input type="text" placeholder="Ihre Adresse" name="adresse" tabindex="1" required/>
-				<button onclick="gWarenkorb.removeAll()" type="button" tabindex="2">Alles L&ouml;schen</button>
-				<button onclick="gWarenkorb.removeSelected()" type="button" tabindex="3">Auswahl L&ouml;schen</button>
-				<button onclick="gWarenkorb.selectAll()" type="submit" tabindex="4">Bestellen</button>
+				<input oninput="gWarenkorb.addressInput(this.value)" type="text" placeholder="Ihre Adresse" name="adresse" tabindex="1" required/>
+				<div>
+					<button onclick="gWarenkorb.removeAll()" type="button" tabindex="2">Alles L&ouml;schen</button>
+					<button onclick="gWarenkorb.removeSelected()" type="button" tabindex="3">Auswahl L&ouml;schen</button>
+					<button id="BestellenButton" onclick="gWarenkorb.selectAll()" type="submit" tabindex="4">Bestellen</button>
+				</div>
 			</form>
-
+		</main>
 HTML;
 		$this->generatePageFooter();
 	}
